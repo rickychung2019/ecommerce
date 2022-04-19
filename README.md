@@ -1,3 +1,19 @@
+# Intro
+This is a demo of ecommerce platform that uses ERC20 token to purchase items.<br/>
+There are 3 components:
+1. Smart Contract (erc20_0), specify ERC20 token standard
+2. Exchange Platform (exchange-platform), simulate the process of exchanging ERC20 token using Braintree sandbox (the account may be expired)
+3. Ecommerce Platform (ecommerce-platform), simulate the process of purchasing items using ERC20.
+# Environment
+The demo has only been tested under the following environment:<br/>
+1. macOS Catalina v10.15.5
+2. Rails 6.0.3.4
+3. ruby 2.5.8p224 (2020-03-31 revision 67882) [x86_64-darwin19]
+4. Truffle v5.1.52 (core: 5.1.52)
+5. Solidity v0.5.16 (solc-js)
+6. Node v14.15.0
+7. Web3.js v1.2.9
+8. Ganache v2.5.4
 # Part 1 Deploy ERC20 locally (Must completed this part first):
 1. Start Ganache
 2. Click NEW WORKSPACE
