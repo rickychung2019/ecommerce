@@ -1,0 +1,74 @@
+<p id="notice"><%= notice %></p>
+<h3>Your Wallet: <%=session[:wallet]%></h3>
+<h4>Remaining Token: <%=session[:available]%></h4>
+<%= form_tag getWallet_path do %>
+  <%= label_tag "Enter Your Wallet" %>
+  <%= text_field_tag "wallet" %>
+  <%= submit_tag "Submit" %>
+<% end %>
+<%= form_tag removeWallet_path do %>
+  <%= submit_tag "Remove Your Wallet" %>
+<% end %>
+<h1>Earphones</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Title</th>
+      <th>Image</th>
+      <th>Price</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @earphones.each do |earphone| %>
+      <tr>
+        <td><%= earphone.title %></td>
+        <td><img src=<%= earphone.image %> width=250 heigth=250></td>
+        <td><%= earphone.price %></td>
+        <td>
+            <%= form_tag addToCart_path do %>
+              <%= hidden_field_tag "index", earphone.id %>
+              <%= number_field_tag "amount" %>
+              <%= submit_tag "Add to Cart" %>
+            <% end %>
+        </td>
+        <!-- <td><%= link_to 'Show', earphone %></td>
+        <td><%= link_to 'Edit', edit_earphone_path(earphone) %></td>
+        <td><%= link_to 'Destroy', earphone, method: :delete, data: { confirm: 'Are you sure?' } %></td> -->
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+<br>
+<hr>
+<h2>Total = <%=session[:total] %></h2>
+<table>
+  <thead>
+    <tr>
+      <th>Title</th>
+      <th>Amount</th>
+      <th>PricePerItem</th>
+      <th>Subtotal</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @earphones.each do |earphone| %>
+      <tr>
+        <td><%= earphone.title %></td>
+        <td><%= session[:cart][earphone.id.to_i-1] %></td>
+        <td><%= earphone.price %></td>
+        <td><%= earphone.price*session[:cart][earphone.id.to_i-1] %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+<%= form_tag purchase_path do %>
+  <%= submit_tag "Purchase" %>
+<% end %>
+<%= form_tag clearCart_path do %>
+  <%= submit_tag "Clear Your Cart" %>
+<% end %>
+

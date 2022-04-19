@@ -1,0 +1,43 @@
+<html>
+    <head>
+        <meta charset="utf-8">
+        <script src="https://js.braintreegateway.com/web/dropin/1.24.0/js/dropin.min.js"></script>
+    </head>
+    <body>
+        <h1>Token Supply: <%=@available%></h1>
+        <h1>Token Price: 10 dollar per token</h1>
+        <h2>Your Wallet: <%=session[:wallet]%></h2>
+        <h2>You own: <%=@own%> </h2>
+        <%= form_tag getWallet_path do %>
+            <%= label_tag "Enter Your Wallet" %>
+            <%= text_field_tag "wallet" %>
+            <%= submit_tag "Submit" %>
+        <% end %>
+        <%= form_tag removeWallet_path do %>
+            <%= submit_tag "Remove Your Wallet" %>
+        <% end %>
+        <form action="purchase" method="post">
+            <label>Number of token you want</label>
+            <input type="text" placeholder="amount" name="amount">
+            <input type="hidden" name="price" value="10">
+            <input type="hidden" id="nonce" name="nonce">
+            <button type="submit">Submit</button>
+        </form>
+        <div id="dropin-container"></div>
+        <button id="submit-button" type="button">Request Pay Method</button>
+        <script>
+        var button = document.querySelector('#submit-button');
+        braintree.dropin.create({
+            authorization: '<%=@client_token%>',
+            container: '#dropin-container',
+        }, function(createErr, instance) {
+            button.addEventListener('click', function(){
+                instance.requestPaymentMethod(function(err,payload){
+                    var nonce = document.querySelector("#nonce");
+                    nonce.value = payload.nonce;
+                });
+            });
+});
+        </script>
+      </body>
+</html>

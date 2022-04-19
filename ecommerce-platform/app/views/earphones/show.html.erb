@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Title:</strong>
+  <%= @earphone.title %>
+</p>
+
+<p>
+  <strong>Image:</strong>
+  <%= @earphone.image %>
+</p>
+
+<p>
+  <strong>Price:</strong>
+  <%= @earphone.price %>
+</p>
+
+<%= link_to 'Edit', edit_earphone_path(@earphone) %> |
+<%= link_to 'Back', earphones_path %>

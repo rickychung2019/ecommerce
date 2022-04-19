@@ -1,0 +1,2 @@
+class Earphone < ApplicationRecord
+end
